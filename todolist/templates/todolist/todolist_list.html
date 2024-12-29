@@ -1,0 +1,39 @@
+{% extends 'todolist/base.html' %}
+
+{% block title %}ToDo List{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold">My Tasks</h2>
+    <a href="{% url 'create' %}" class="bg-cyan-800 hover:bg-cyan-700 text-white py-2 px-4 rounded">
+        Add Task
+    </a>
+</div>
+
+{% if alltask %}
+<table class="w-full bg-white rounded shadow">
+    <thead>
+        <tr class="bg-gray-200">
+            <th class="py-2 px-4">Task</th>
+            <th class="py-2 px-4">Description</th>
+            <th class="py-2 px-4">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in alltask %}
+        <tr class="border-t">
+            <td class="py-2 px-4">{{ item.task }}</td>
+            <td class="py-2 px-4">{{ item.description }}</td>
+            <td class="py-2 px-4">
+                <a href="{% url 'todolist' item.id %}" class="text-yellow-400 hover:underline">View</a> |
+                <a href="{% url 'update' item.id %}" class="text-green-500 hover:underline">Edit</a> |
+                <a href="{% url 'delete' item.id %}" class="text-red-500 hover:underline">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-gray-600">No tasks found. Add a new task!</p>
+{% endif %}
+{% endblock %}

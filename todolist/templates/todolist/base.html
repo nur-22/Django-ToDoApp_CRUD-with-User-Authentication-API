@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ToDoApp{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agu+Display&family=Rubik+Vinyl&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="bg-gray-100 text-gray-800 font-[Rubik Vinyl] flex items-center justify-center min-h-screen"
+style="background-image: url('https://img.sunset02.com/sites/default/files/image/2016/09/main/morning-glory.jpg'); background-size: contain; background-position: center;">
+    <div class="bg-white shadow-md rounded-lg w-full max-w-4xl">
+        <header class="bg-gray-800 text-white p-4 shadow-md rounded-t-lg">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-lg font-[Rubik Vinyl] font-bold"><a href="{% url 'alltask' %}"><span class="text-orange-600">ToDo</span>App</a></h1>
+                <nav>
+                    {% if request.user.is_authenticated %}
+                        <span class="mr-4 text-pink-500">Hi, {{ request.user }}</span>
+                        <form method="POST" action="{% url 'logout' %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-cyan-800 hover:bg-cyan-700 text-yellow-400 py-1 px-3 rounded">Logout</button>
+                        </form>
+                    {% else %}
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+        
+        <main class="p-6">
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+        <footer class="bg-gray-800 text-white text-center py-4 rounded-b-lg">
+            &copy; 2024 <span class="text-orange-600">ToDo</span>App- Developed by
+            <span class="text-cyan-400">Nur</span>
+        </footer>
+    </div>
+</body>
+
+</html>
